@@ -1,21 +1,17 @@
 #include <vector>
-#include "iostream"
-#include "opencv4/opencv2/imgcodecs.hpp"
-#include "opencv4/opencv2/highgui.hpp"
-#include "opencv4/opencv2/imgproc.hpp"
-#include "opencv4/opencv2/objdetect.hpp"
-#include "opencv4/opencv2/opencv.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/objdetect.hpp"
+#include "opencv2/opencv.hpp"
 
 int main() {
-    cv::VideoCapture video(-1);
+    cv::VideoCapture video(0);
     cv::CascadeClassifier faceDetector;
     cv::Mat img;
-    std::string path;
-    printf("Enter the path to the xml file: ");
-    std::cin >> path;
-    faceDetector.load(path);
+    faceDetector.load("haarcascade_frontalface_default.xml");
 
-    while(1){
+    while(cv::waitKey(1) != 27) {
         video.read(img);
         std::vector<cv::Rect> faces;
         faceDetector.detectMultiScale(img, faces, 1.3, 5);
